@@ -17,15 +17,13 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # 1. Masuk ke folder proyek Frontend di VPS 
-            # (Ganti nama foldernya jika Anda menggunakan nama yang berbeda di VPS)
-            cd ~/sadewashub-fe
+            script: |
+            # Masuk ke folder proyek Frontend
+            cd ~/SadewasHub-FE
 
-            # 2. Tarik kode terbaru dari GitHub
+            # Tarik kode terbaru
             git pull origin main
 
-            # 3. Rakit ulang (build) container Docker dengan kode terbaru dan jalankan
-            sudo docker compose up -d --build
-
-            # 4. Bersihkan sampah image Docker lama agar memori SSD VPS Anda tetap lega
-            sudo docker image prune -f
+            # 🌟 PERBAIKAN: Hapus kata sudo di bawah ini
+            docker compose up -d --build
+            docker image prune -f
