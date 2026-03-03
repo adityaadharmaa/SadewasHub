@@ -1,8 +1,6 @@
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: mrzwen/sadewashub-fe:latest
     container_name: sadewas_frontend
     restart: unless-stopped
     ports:
