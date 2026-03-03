@@ -110,21 +110,21 @@ export default function NotificationsPage() {
       {/* --- NOTIFICATION LIST --- */}
       <div className="flex flex-col gap-3">
         {isLoading && (
-          <div className="py-12 flex flex-col items-center justify-center text-slate-500 bg-white dark:bg-[#0f172a] rounded-[24px] border border-slate-200/60 dark:border-slate-800">
+          <div className="py-12 flex flex-col items-center justify-center text-slate-500 bg-white dark:bg-[#0f172a] rounded-3xl border border-slate-200/60 dark:border-slate-800">
             <Loader2 className="h-8 w-8 animate-spin text-primary-500 mb-3" />
             <p className="font-medium">Memuat notifikasi...</p>
           </div>
         )}
 
         {isError && (
-          <div className="py-12 flex flex-col items-center justify-center text-red-500 bg-white dark:bg-[#0f172a] rounded-[24px] border border-slate-200/60 dark:border-slate-800">
+          <div className="py-12 flex flex-col items-center justify-center text-red-500 bg-white dark:bg-[#0f172a] rounded-3xl border border-slate-200/60 dark:border-slate-800">
             <AlertCircle className="h-8 w-8 mb-3" />
             <p className="font-medium">Gagal mengambil data notifikasi.</p>
           </div>
         )}
 
         {!isLoading && !isError && notificationsList.length === 0 ? (
-          <div className="py-20 flex flex-col items-center justify-center text-slate-400 bg-white dark:bg-[#0f172a] rounded-[24px] border border-slate-200/60 dark:border-slate-800">
+          <div className="py-20 flex flex-col items-center justify-center text-slate-400 bg-white dark:bg-[#0f172a] rounded-3xl border border-slate-200/60 dark:border-slate-800">
             <div className="h-16 w-16 bg-slate-100 dark:bg-[#1e293b] rounded-full flex items-center justify-center mb-4">
               <Bell className="h-8 w-8 opacity-50" />
             </div>

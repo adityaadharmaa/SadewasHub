@@ -130,10 +130,10 @@ export default function TenantBookingDetailPage() {
 
       {/* STATUS CARD */}
       <div
-        className={`rounded-[32px] p-6 sm:p-8 text-white shadow-xl relative overflow-hidden transition-colors ${
+        className={`rounded-4xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden transition-colors ${
           isPending
-            ? "bg-gradient-to-br from-indigo-500 to-purple-700 shadow-indigo-500/20"
-            : "bg-gradient-to-br from-primary-600 to-blue-800 shadow-primary-500/20"
+            ? "bg-linear-to-br from-indigo-500 to-purple-700 shadow-indigo-500/20"
+            : "bg-linear-to-br from-primary-600 to-blue-800 shadow-primary-500/20"
         }`}
       >
         <div className="absolute -right-6 -top-6 opacity-10">

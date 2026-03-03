@@ -11,9 +11,7 @@ import {
   Check,
   X,
   Loader2,
-  AlertCircle,
   ShieldAlert,
-  Image as ImageIcon,
   Lock, // Tambahkan icon Lock
 } from "lucide-react";
 import { toast } from "sonner";
@@ -80,7 +78,7 @@ const PrivateImage = ({
   if (loading) {
     return (
       <div
-        className={`flex flex-col items-center justify-center bg-slate-100 dark:bg-[#1e293b] text-slate-400 animate-pulse ${className} min-h-[200px]`}
+        className={`flex flex-col items-center justify-center bg-slate-100 dark:bg-[#1e293b] text-slate-400 animate-pulse ${className} min-h-50`}
       >
         <Loader2 className="h-6 w-6 animate-spin mb-2" />
         <span className="text-xs font-medium">Mendekripsi KTP...</span>
@@ -91,7 +89,7 @@ const PrivateImage = ({
   if (error || !imgSrc) {
     return (
       <div
-        className={`flex flex-col items-center justify-center p-8 text-slate-400 ${className} min-h-[200px]`}
+        className={`flex flex-col items-center justify-center p-8 text-slate-400 ${className} min-h-50`}
       >
         <ShieldAlert className="h-10 w-10 mb-2 opacity-50" />
         <p className="text-sm font-medium">
@@ -177,7 +175,7 @@ export default function TenantsPage() {
       });
       return res.data;
     },
-    onSuccess: (res, variables) => {
+    onSuccess: (variables) => {
       const actionTxt =
         variables.status === "verified" ? "diverifikasi" : "ditolak";
       toast.success(`Profil penghuni berhasil ${actionTxt}!`);
@@ -271,7 +269,7 @@ export default function TenantsPage() {
       </div>
 
       {/* --- TABLE --- */}
-      <div className="overflow-hidden rounded-[24px] border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
+      <div className="overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-slate-200/60 bg-slate-50/50 text-xs uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
@@ -376,7 +374,7 @@ export default function TenantsPage() {
       {/* --- MODAL REVIEW KTP --- */}
       {selectedTenant && selectedTenant.profile && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="flex w-full max-w-3xl flex-col overflow-hidden rounded-[24px] bg-white shadow-2xl dark:bg-[#0f172a] ring-1 ring-slate-100 dark:ring-slate-800 max-h-[95vh] animate-in zoom-in-95">
+          <div className="flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-[#0f172a] ring-1 ring-slate-100 dark:ring-slate-800 max-h-[95vh] animate-in zoom-in-95">
             <div className="flex items-center justify-between border-b border-slate-100 p-5 dark:border-slate-800 shrink-0">
               <div>
                 <h2 className="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">

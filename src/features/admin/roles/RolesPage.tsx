@@ -194,12 +194,12 @@ export default function RolesPage() {
 
       {/* --- CONTENT GRID --- */}
       {rolesLoading ? (
-        <div className="py-24 flex flex-col items-center justify-center text-slate-500 bg-white dark:bg-[#0f172a] rounded-[32px] border border-slate-200/60 dark:border-slate-800/60">
+        <div className="py-24 flex flex-col items-center justify-center text-slate-500 bg-white dark:bg-[#0f172a] rounded-4xl border border-slate-200/60 dark:border-slate-800/60">
           <Loader2 className="h-10 w-10 animate-spin text-primary-500 mb-4" />
           <p className="font-bold">Membaca struktur otorisasi...</p>
         </div>
       ) : rolesError ? (
-        <div className="py-24 flex flex-col items-center justify-center text-red-500 bg-white dark:bg-[#0f172a] rounded-[32px] border border-slate-200/60 dark:border-slate-800/60">
+        <div className="py-24 flex flex-col items-center justify-center text-red-500 bg-white dark:bg-[#0f172a] rounded-4xl border border-slate-200/60 dark:border-slate-800/60">
           <AlertCircle className="h-10 w-10 mb-4" />
           <p className="font-bold">Gagal memuat data role.</p>
         </div>
@@ -212,7 +212,7 @@ export default function RolesPage() {
             return (
               <div
                 key={role.id}
-                className="group flex flex-col h-full overflow-hidden rounded-[24px] border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-700/60 dark:bg-[#1e293b]/40 dark:hover:shadow-black/50 dark:hover:border-slate-600/80 relative"
+                className="group flex flex-col h-full overflow-hidden rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-700/60 dark:bg-[#1e293b]/40 dark:hover:shadow-black/50 dark:hover:border-slate-600/80 relative"
               >
                 {/* Efek Garis Atas Berwarna */}
                 <div

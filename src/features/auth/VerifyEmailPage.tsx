@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Mail, ArrowRight, LogOut, Loader2 } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner"; // <-- IMPORT TOAST
+import { toast } from "sonner";
 import api from "../../services/api";
 import { useAuthStore } from "../../store/authStore";
 import { Button } from "../../components/shared/Button";
@@ -25,32 +25,32 @@ export default function VerifyEmailPage() {
     onSuccess: (responseData) => {
       setIsVerifying(false);
 
-      // 1. Munculkan Toast Sukses
       toast.success(responseData.message || "Email berhasil diverifikasi!");
 
-      // 2. Update status user di state
+      // 1. Perbaikan Type Assertion pada Profile
       if (user && token) {
         setAuth(
-          { ...user, profile: { ...user.profile, is_verified: true } },
+          {
+            ...user,
+            profile: { ...(user.profile as any), is_verified: true },
+          },
           token,
         );
       }
 
-      // 3. Langsung arahkan ke Dashboard (Toast akan tetap terlihat di Dashboard)
-      navigate(
-        user?.roles === "admin" ? "/admin/dashboard" : "/tenant/dashboard",
-        { replace: true },
-      );
+      // 2. Perbaikan Logika Redirect (Gunakan Type Assertion 'as any')
+      const userRoles = user?.roles as any;
+      const destination =
+        userRoles === "admin" ? "/admin/dashboard" : "/tenant/dashboard";
+
+      navigate(destination, { replace: true });
     },
     onError: (error: any) => {
       setIsVerifying(false);
-      // Munculkan Toast Error
       toast.error(
         error.response?.data?.message ||
           "Link verifikasi tidak valid atau sudah kedaluwarsa.",
       );
-
-      // Hapus URL dari address bar agar error tidak berulang saat di-refresh
       navigate("/verify-email", { replace: true });
     },
   });
@@ -79,8 +79,7 @@ export default function VerifyEmailPage() {
       setIsVerifying(true);
       verifyEmailMutation.mutate(verificationUrl);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verificationUrl]);
+  }, [verificationUrl, isVerifying, verifyEmailMutation]);
 
   if (!user) {
     navigate("/login");
@@ -92,10 +91,14 @@ export default function VerifyEmailPage() {
     navigate("/login");
   };
 
+  // Helper untuk cek role (menghindari error TS2367)
+  const isAdmin = (user.roles as any) === "admin";
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
-      <div className="w-full max-w-[420px] animate-fade-in text-center py-8">
-        <div className="rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 transition-all">
+      {/* Perbaikan: Gunakan max-w-[420px] jika max-w-105 tidak terdaftar di tailwind.config */}
+      <div className="w-full max-w-105 animate-fade-in text-center py-8">
+        <div className="rounded-4xl bg-white p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 transition-all">
           {isVerifying ? (
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary-50 text-primary-600 ring-4 ring-primary-50/50">
               <Loader2 className="h-10 w-10 animate-spin" />
@@ -128,11 +131,7 @@ export default function VerifyEmailPage() {
               <Button
                 variant="outline"
                 onClick={() =>
-                  navigate(
-                    user.roles === "admin"
-                      ? "/admin/dashboard"
-                      : "/tenant/dashboard",
-                  )
+                  navigate(isAdmin ? "/admin/dashboard" : "/tenant/dashboard")
                 }
               >
                 Masuk ke Dashboard <ArrowRight className="h-4 w-4" />

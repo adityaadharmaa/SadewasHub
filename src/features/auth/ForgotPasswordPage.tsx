@@ -40,8 +40,8 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
-      <div className="w-full max-w-[420px] animate-fade-in">
-        <div className="rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100">
+      <div className="w-full max-w-105 animate-fade-in">
+        <div className="rounded-4xl bg-white p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100">
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-primary-600">
               Lupa Password?

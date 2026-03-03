@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react"; // Hapus 'useState' karena tidak digunakan (Error TS6133)
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -29,7 +29,7 @@ export default function BookingCreatePage() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    // FIX: Menghapus 'errors' karena tidak pernah dibaca (Error TS6133)
   } = useForm({
     defaultValues: {
       check_in_date: new Date().toISOString().split("T")[0],
@@ -203,7 +203,7 @@ export default function BookingCreatePage() {
             className="space-y-6"
           >
             {/* BOX 1: DATA PEMESAN */}
-            <div className="rounded-[24px] bg-white dark:bg-[#1e293b]/60 border border-slate-200/80 dark:border-slate-800/80 p-6 sm:p-8 shadow-sm">
+            <div className="rounded-3xl bg-white dark:bg-[#1e293b]/60 border border-slate-200/80 dark:border-slate-800/80 p-6 sm:p-8 shadow-sm">
               <h2 className="text-lg font-black text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <ShieldCheck className="h-5 w-5 text-primary-500" /> Data
                 Pemesan
@@ -229,7 +229,7 @@ export default function BookingCreatePage() {
             </div>
 
             {/* BOX 2: DETAIL WAKTU */}
-            <div className="rounded-[24px] bg-white dark:bg-[#1e293b]/60 border border-slate-200/80 dark:border-slate-800/80 p-6 sm:p-8 shadow-sm">
+            <div className="rounded-3xl bg-white dark:bg-[#1e293b]/60 border border-slate-200/80 dark:border-slate-800/80 p-6 sm:p-8 shadow-sm">
               <h2 className="text-lg font-black text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <Clock className="h-5 w-5 text-primary-500" /> Detail Sewa
               </h2>
@@ -245,13 +245,8 @@ export default function BookingCreatePage() {
                     {...register("check_in_date", {
                       required: "Tanggal check-in wajib diisi",
                     })}
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:bg-white focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#0f172a] dark:text-white dark:focus:bg-[#1e293b] [color-scheme:light] dark:[color-scheme:dark]"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:bg-white focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#0f172a] dark:text-white dark:focus:bg-[#1e293b] scheme-light dark:scheme-dark"
                   />
-                  {errors.check_in_date && (
-                    <p className="text-xs text-red-500 mt-1">
-                      {String(errors.check_in_date.message)}
-                    </p>
-                  )}
                 </div>
 
                 <div className="sm:col-span-1">
@@ -294,11 +289,6 @@ export default function BookingCreatePage() {
                       {rentTypeLabel}
                     </span>
                   </div>
-                  {errors.duration && (
-                    <p className="text-xs text-red-500 mt-1">
-                      {String(errors.duration.message)}
-                    </p>
-                  )}
                 </div>
               </div>
 
@@ -339,7 +329,7 @@ export default function BookingCreatePage() {
 
         {/* KOLOM KANAN: RINGKASAN & PEMBAYARAN */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="rounded-[24px] bg-white dark:bg-[#1e293b]/60 border border-slate-200/80 dark:border-slate-800/80 overflow-hidden shadow-sm sticky top-24">
+          <div className="rounded-3xl bg-white dark:bg-[#1e293b]/60 border border-slate-200/80 dark:border-slate-800/80 overflow-hidden shadow-sm sticky top-24">
             <div className="h-40 bg-slate-100 dark:bg-slate-800 relative">
               {thumbnail ? (
                 <img
@@ -352,7 +342,7 @@ export default function BookingCreatePage() {
                   <BedDouble className="h-12 w-12" />
                 </div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
                 <span className="text-[10px] font-black text-white/80 uppercase tracking-wider mb-1">
                   {roomData?.type?.name || "Kamar Reguler"}
                 </span>

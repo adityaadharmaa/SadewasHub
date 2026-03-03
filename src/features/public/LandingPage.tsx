@@ -65,7 +65,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-blue-800 text-white shadow-lg shadow-primary-500/30">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-b from-primary-600 to-blue-800 text-white shadow-lg shadow-primary-500/30">
               <Home className="h-5 w-5" />
             </div>
             <span className="text-xl font-black tracking-tight text-slate-900">
@@ -98,7 +98,7 @@ export default function LandingPage() {
             aria-hidden="true"
           >
             <div
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-288.75"
               style={{
                 clipPath:
                   "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
@@ -113,7 +113,7 @@ export default function LandingPage() {
               </span>
               <h1 className="text-4xl font-black tracking-tight text-slate-900 sm:text-6xl mb-6 animate-in slide-in-from-bottom-4 duration-500">
                 Kenyamanan Ekstra, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-blue-600">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-600 to-blue-600">
                   Layaknya Rumah Sendiri.
                 </span>
               </h1>

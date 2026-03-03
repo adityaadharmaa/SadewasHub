@@ -45,7 +45,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className={`fixed left-0 top-0 z-40 flex h-screen w-[260px] flex-col border-r border-slate-200 bg-white transition-transform duration-300 dark:border-slate-800 dark:bg-slate-900 ${
+      className={`fixed left-0 top-0 z-40 flex h-screen w-65 flex-col border-r border-slate-200 bg-white transition-transform duration-300 dark:border-slate-800 dark:bg-slate-900 ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       }`}
     >

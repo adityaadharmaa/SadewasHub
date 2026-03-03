@@ -246,7 +246,7 @@ export default function PromosPage() {
       </div>
 
       {/* --- TABLE DATA --- */}
-      <div className="overflow-hidden rounded-[24px] border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-700/50 dark:bg-[#0f172a]">
+      <div className="overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-700/50 dark:bg-[#0f172a]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead className="border-b border-slate-200/60 bg-slate-50/50 text-[10px] uppercase tracking-wider text-slate-500 dark:border-slate-700/80 dark:bg-[#1e293b]/50 dark:text-slate-400">
@@ -383,7 +383,7 @@ export default function PromosPage() {
       {/* --- MODAL FORM PROMO --- */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="flex w-full max-w-lg scale-100 flex-col overflow-hidden rounded-[24px] bg-white p-7 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-[#0f172a] dark:ring-slate-800 sm:max-h-[90vh]">
+          <div className="flex w-full max-w-lg scale-100 flex-col overflow-hidden rounded-3xl bg-white p-7 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-[#0f172a] dark:ring-slate-800 sm:max-h-[90vh]">
             <div className="mb-6 flex shrink-0 items-center justify-between">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
                 <Tag className="h-5 w-5 text-primary-500" />
@@ -468,7 +468,7 @@ export default function PromosPage() {
                     {...register("start_date", {
                       required: "Tanggal mulai wajib diisi",
                     })}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#1e293b] dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#1e293b] dark:text-white scheme-light dark:scheme-dark"
                   />
                 </div>
                 <div>
@@ -480,7 +480,7 @@ export default function PromosPage() {
                     {...register("end_date", {
                       required: "Tanggal akhir wajib diisi",
                     })}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#1e293b] dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#1e293b] dark:text-white scheme-light dark:scheme-dark"
                   />
                 </div>
               </div>

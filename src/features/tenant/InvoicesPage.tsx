@@ -193,7 +193,7 @@ export default function InvoicesPage() {
         </h2>
 
         {activeInvoices.length === 0 ? (
-          <div className="rounded-[24px] border border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1e293b]/50 p-8 text-center shadow-sm">
+          <div className="rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1e293b]/50 p-8 text-center shadow-sm">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-500 mb-3">
               <CheckCircle2 className="h-6 w-6" />
             </div>
@@ -209,7 +209,7 @@ export default function InvoicesPage() {
             {activeInvoices.map((booking: any) => (
               <div
                 key={booking.id}
-                className="relative overflow-hidden rounded-[24px] border border-amber-200 bg-amber-50/50 dark:border-amber-500/30 dark:bg-amber-500/10 p-5 shadow-sm transition-all hover:shadow-md"
+                className="relative overflow-hidden rounded-3xl border border-amber-200 bg-amber-50/50 dark:border-amber-500/30 dark:bg-amber-500/10 p-5 shadow-sm transition-all hover:shadow-md"
               >
                 <div className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-amber-700 dark:bg-amber-500/20 dark:text-amber-400">
                   <Clock className="h-3 w-3" /> Pending
@@ -286,7 +286,7 @@ export default function InvoicesPage() {
           Riwayat Transaksi
         </h2>
 
-        <div className="overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-[#1e293b]/50">
+        <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-[#1e293b]/50">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="border-b border-slate-100 bg-slate-50/50 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:border-slate-800 dark:bg-slate-800/50">

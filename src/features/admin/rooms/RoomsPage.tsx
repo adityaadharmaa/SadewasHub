@@ -7,7 +7,6 @@ import {
   Edit2,
   Trash2,
   Loader2,
-  AlertCircle,
   X,
   Home,
   CheckCircle2,
@@ -315,7 +314,7 @@ export default function RoomsPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[24px] border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
+      <div className="overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-slate-200/60 bg-slate-50/50 text-xs uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
@@ -371,7 +370,7 @@ export default function RoomsPage() {
                             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                           />
                           {item.images.length > 1 && (
-                            <div className="absolute bottom-0 right-0 flex items-center justify-center rounded-tl-lg bg-slate-900/80 px-1.5 py-[2px] text-[10px] font-bold text-white backdrop-blur-md transition-colors group-hover:bg-primary-600">
+                            <div className="absolute bottom-0 right-0 flex items-center justify-center rounded-tl-lg bg-slate-900/80 px-1.5 py-0.5 text-[10px] font-bold text-white backdrop-blur-md transition-colors group-hover:bg-primary-600">
                               +{item.images.length - 1}
                             </div>
                           )}
@@ -397,7 +396,7 @@ export default function RoomsPage() {
                       )}
                     </td>
 
-                    <td className="px-6 py-4 align-top pt-5 min-w-[200px]">
+                    <td className="px-6 py-4 align-top pt-5 min-w-50">
                       {item.type ? (
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-xs">
@@ -487,8 +486,8 @@ export default function RoomsPage() {
 
       {/* MODAL GALERI GAMBAR */}
       {viewingGallery && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/80 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="flex w-full max-w-4xl flex-col overflow-hidden rounded-[24px] bg-white shadow-2xl dark:bg-slate-900 ring-1 ring-slate-100 dark:ring-slate-800 max-h-[90vh] animate-in zoom-in-95">
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-slate-900/80 p-4 backdrop-blur-sm animate-in fade-in">
+          <div className="flex w-full max-w-4xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900 ring-1 ring-slate-100 dark:ring-slate-800 max-h-[90vh] animate-in zoom-in-95">
             <div className="flex shrink-0 items-center justify-between border-b border-slate-100 dark:border-slate-800 p-6">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
                 <ImageIcon className="h-6 w-6 text-primary-500" />
@@ -507,7 +506,7 @@ export default function RoomsPage() {
                 {viewingGallery.images.map((img, idx) => (
                   <div
                     key={img.id}
-                    className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm"
+                    className="group relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm"
                   >
                     <img
                       src={img.url}
@@ -528,7 +527,7 @@ export default function RoomsPage() {
       {/* MODAL FORM KAMAR */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="flex w-full max-w-lg scale-100 flex-col overflow-hidden rounded-[24px] bg-white p-7 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-slate-900 dark:ring-slate-800 sm:max-h-[90vh]">
+          <div className="flex w-full max-w-lg scale-100 flex-col overflow-hidden rounded-3xl bg-white p-7 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-slate-900 dark:ring-slate-800 sm:max-h-[90vh]">
             <div className="mb-6 flex shrink-0 items-center justify-between">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
                 {editingData ? "Edit Data Kamar" : "Tambah Kamar Baru"}

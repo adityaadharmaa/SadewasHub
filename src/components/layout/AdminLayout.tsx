@@ -41,7 +41,7 @@ export default function AdminLayout({
       <Sidebar />
 
       {/* Area Utama (Margin Kiri hilang di mobile) */}
-      <div className="flex flex-col min-h-screen transition-all duration-300 lg:ml-[260px]">
+      <div className="flex flex-col min-h-screen transition-all duration-300 lg:ml-65">
         <TopNavbar />
 
         <main className="flex-1 p-4 sm:p-8 animate-fade-in">{children}</main>

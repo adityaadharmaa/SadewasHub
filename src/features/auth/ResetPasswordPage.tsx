@@ -1,17 +1,21 @@
 import { useForm } from "react-hook-form";
 import { Lock, Mail, CheckCircle2 } from "lucide-react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import api from "../../services/api";
 import { Input } from "../../components/shared/Input";
 import { Button } from "../../components/shared/Button";
 
+// 1. Definisikan interface di luar komponen agar bersih
+interface IResetPasswordForm {
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
-  // Menangkap token dari path URL (misal: /reset-password/123xyz)
-  const { token } = useParams();
-  // Menangkap query email (misal: ?email=user@email.com) bawaan dari Laravel
   const [searchParams] = useSearchParams();
   const defaultEmail = searchParams.get("email") || "";
 
@@ -20,14 +24,18 @@ export default function ResetPasswordPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({
-    defaultValues: { email: defaultEmail },
+  } = useForm<IResetPasswordForm>({
+    defaultValues: {
+      email: defaultEmail,
+      password: "",
+      password_confirmation: "",
+    },
   });
 
-  const password = watch("password", "");
+  // 2. Tambahkan Type Assertion 'as string' agar TypeScript yakin ini adalah string
+  const passwordValue = watch("password") as string;
 
   const resetMutation = useMutation({
-    // Ubah mutationFn agar langsung menerima payload yang sudah utuh
     mutationFn: async (payload: any) => {
       const response = await api.post("/auth/reset-password", payload);
       return response.data;
@@ -37,7 +45,6 @@ export default function ResetPasswordPage() {
       navigate("/login");
     },
     onError: (error: any) => {
-      // Menangkap error validasi dari Laravel agar lebih spesifik
       const serverErrors = error.response?.data?.errors;
       if (serverErrors) {
         const firstError = Object.values(serverErrors)[0] as string[];
@@ -48,33 +55,32 @@ export default function ResetPasswordPage() {
     },
   });
 
-  const onSubmit = (data: any) => {
-    // 1. Tangkap ulang token secara langsung dari URL saat tombol ditekan
+  const onSubmit = (data: IResetPasswordForm) => {
+    // Laravel biasanya mengirim token lewat query param '?token=...'
     const urlToken = searchParams.get("token");
 
     if (!urlToken) {
       toast.error(
-        "Token tidak ditemukan di URL. Silakan klik ulang link dari email Anda.",
+        "Token tidak ditemukan. Silakan klik ulang link dari email Anda.",
       );
       return;
     }
 
-    // 2. Susun payload secara eksplisit agar tidak ada data yang tertinggal
     const payload = {
       email: data.email,
       password: data.password,
       password_confirmation: data.password_confirmation,
-      token: urlToken, // <- INI YANG TADI HILANG
+      token: urlToken,
     };
 
-    // 3. Kirim ke backend
     resetMutation.mutate(payload);
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
-      <div className="w-full max-w-[420px] animate-fade-in py-8">
-        <div className="rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100">
+      {/* Gunakan max-w-[420px] jika max-w-105 belum terdaftar di tailwind config */}
+      <div className="w-full max-w-105 animate-fade-in py-8">
+        <div className="rounded-4xl bg-white p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100">
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-primary-600">
               Buat Password Baru
@@ -85,7 +91,6 @@ export default function ResetPasswordPage() {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Input Email (Readonly jika sudah dapat dari URL) */}
             <div>
               <Input
                 label="Email Address"
@@ -101,7 +106,6 @@ export default function ResetPasswordPage() {
               />
             </div>
 
-            {/* Input Password Baru */}
             <div>
               <Input
                 label="Password Baru"
@@ -115,12 +119,11 @@ export default function ResetPasswordPage() {
               />
               {errors.password && (
                 <p className="mt-1 ml-1 text-xs text-red-500 font-medium">
-                  {errors.password.message as string}
+                  {errors.password.message}
                 </p>
               )}
             </div>
 
-            {/* Input Konfirmasi Password */}
             <div>
               <Input
                 label="Konfirmasi Password Baru"
@@ -130,12 +133,12 @@ export default function ResetPasswordPage() {
                 {...register("password_confirmation", {
                   required: "Konfirmasi password wajib diisi",
                   validate: (value) =>
-                    value === password || "Password tidak cocok",
+                    value === passwordValue || "Password tidak cocok",
                 })}
               />
               {errors.password_confirmation && (
                 <p className="mt-1 ml-1 text-xs text-red-500 font-medium">
-                  {errors.password_confirmation.message as string}
+                  {errors.password_confirmation.message}
                 </p>
               )}
             </div>

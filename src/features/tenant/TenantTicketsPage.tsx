@@ -183,7 +183,7 @@ export default function TenantTicketsPage() {
       {/* HEADER SECTION */}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between pt-2">
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/30 text-white">
+          <div className="hidden sm:flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/30 text-white">
             <MessageSquare className="h-7 w-7" />
           </div>
           <div>
@@ -215,7 +215,7 @@ export default function TenantTicketsPage() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {tickets?.length === 0 ? (
-            <div className="lg:col-span-2 py-24 flex flex-col items-center justify-center bg-white/50 dark:bg-slate-800/20 backdrop-blur-sm rounded-[32px] border-2 border-dashed border-slate-200 dark:border-slate-800">
+            <div className="lg:col-span-2 py-24 flex flex-col items-center justify-center bg-white/50 dark:bg-slate-800/20 backdrop-blur-sm rounded-4xl border-2 border-dashed border-slate-200 dark:border-slate-800">
               <div className="h-20 w-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-5">
                 <TicketIcon className="h-10 w-10 text-slate-400 dark:text-slate-500 stroke-[1.5]" />
               </div>
@@ -236,7 +236,7 @@ export default function TenantTicketsPage() {
                   key={ticket.id}
                   className="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-500/5 hover:-translate-y-1 hover:border-primary-200 dark:hover:border-primary-900 flex flex-col h-full overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 to-transparent dark:from-primary-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-br from-primary-50/50 to-transparent dark:from-primary-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
                   <div className="relative z-10">
                     <div className="flex justify-between items-start mb-5">
@@ -254,7 +254,7 @@ export default function TenantTicketsPage() {
                     <h3 className="font-black text-slate-900 dark:text-white text-lg mb-2 line-clamp-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                       {ticket.title}
                     </h3>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed mb-6 line-clamp-3 flex-grow">
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed mb-6 line-clamp-3 grow">
                       {ticket.description}
                     </p>
                   </div>
@@ -293,7 +293,7 @@ export default function TenantTicketsPage() {
                     </div>
 
                     {ticket.admin_note && (
-                      <div className="mt-5 p-4 rounded-2xl rounded-tl-sm bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 border-l-4 border-primary-500 relative">
+                      <div className="mt-5 p-4 rounded-2xl rounded-tl-sm bg-linear-to-r from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 border-l-4 border-primary-500 relative">
                         <div className="flex items-center gap-2 mb-1.5">
                           <CheckCircle2 className="h-3.5 w-3.5 text-primary-500" />
                           <span className="text-[10px] font-black text-primary-700 dark:text-primary-400 uppercase tracking-wider">
@@ -322,9 +322,9 @@ export default function TenantTicketsPage() {
           />
 
           {/* PERBAIKAN: flex-col dan max-h-[90vh] agar tidak bablas */}
-          <div className="relative w-full max-w-xl flex flex-col max-h-[90vh] bg-white dark:bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl shadow-slate-900/20 animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+          <div className="relative w-full max-w-xl flex flex-col max-h-[90vh] bg-white dark:bg-slate-900 rounded-4xl overflow-hidden shadow-2xl shadow-slate-900/20 animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             {/* Header Modal - shrink-0 agar tidak ikut ter-scroll */}
-            <div className="shrink-0 p-6 sm:p-8 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800/50 dark:to-slate-900 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div className="shrink-0 p-6 sm:p-8 bg-linear-to-b from-slate-50 to-white dark:from-slate-800/50 dark:to-slate-900 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                   Form Laporan 📝
@@ -354,7 +354,7 @@ export default function TenantTicketsPage() {
                 <input
                   {...register("title", { required: "Judul wajib diisi" })}
                   placeholder="Contoh: AC Kamar Tidak Dingin"
-                  className="w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-5 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none transition-all focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 placeholder:text-slate-400 font-medium"
+                  className="w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-5 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none transition-all focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 placeholder:text-slate-400"
                 />
                 {errors.title && (
                   <p className="text-xs font-bold text-rose-500 mt-1">

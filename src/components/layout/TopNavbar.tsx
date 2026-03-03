@@ -11,7 +11,6 @@ import {
   LogOut,
   User,
   Settings,
-  CreditCard,
   Menu,
   Loader2,
 } from "lucide-react";
@@ -244,7 +243,7 @@ export function TopNavbar() {
                 )}
               </div>
 
-              <div className="max-h-[320px] overflow-y-auto p-2">
+              <div className="max-h-80 overflow-y-auto p-2">
                 {isLoadingNotifs ? (
                   <div className="flex h-32 flex-col items-center justify-center text-slate-400">
                     <Loader2 className="h-6 w-6 animate-spin mb-2" />
@@ -310,7 +309,7 @@ export function TopNavbar() {
             </div>
             <div className="hidden text-left sm:block">
               {/* DI SINI KITA PAKAI SHORT NAME AGAR TIDAK KEPANJANGAN */}
-              <p className="text-xs font-bold text-slate-700 leading-none dark:text-slate-200 max-w-[120px] truncate">
+              <p className="text-xs font-bold text-slate-700 leading-none dark:text-slate-200 max-w-30 truncate">
                 {shortName}
               </p>
               <p className="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wide mt-0.5">

@@ -3,38 +3,48 @@
 # ==========================================
 FROM node:20-alpine AS builder
 
-# Install pnpm secara global
+# Memasang pnpm secara global
 RUN npm install -g pnpm
 
-# Set direktori kerja di dalam container
+# Menentukan direktori kerja
 WORKDIR /app
 
-# Salin file dependencies terlebih dahulu (untuk optimasi cache Docker)
+# 1. Optimasi Cache: Salin file manifest terlebih dahulu
+# Ini mencegah install ulang library jika hanya kode source yang berubah
 COPY package.json pnpm-lock.yaml ./
 
-# Install semua package menggunakan pnpm
+# 2. Install dependencies dengan mode frozen (pastikan versi lockfile sama)
 RUN pnpm install --frozen-lockfile
 
-# Salin seluruh sisa source code frontend Anda
+# 3. Salin seluruh source code
 COPY . .
 
-# Eksekusi build Vite (Hasilnya akan muncul di folder /app/dist)
+# 4. Build aplikasi (Vite akan membaca file .env.production secara otomatis)
 RUN pnpm build
 
 
 # ==========================================
 # STAGE 2: Production Image (Menggunakan Nginx)
 # ==========================================
-FROM nginx:alpine
+FROM nginx:stable-alpine
 
-# Salin file konfigurasi Nginx khusus React Router yang kita buat tadi
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Hapus konfigurasi default Nginx agar tidak bentrok
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Pindahkan hasil build dari STAGE 1 ke dalam folder publik Nginx
+# 5. Salin file konfigurasi Nginx khusus dari folder proyek Anda
+# Pastikan jalur 'docker/nginx/default.conf' benar di laptop Anda
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# 6. Salin hasil build dari stage builder ke folder publik Nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Ekspos port 80 di dalam container
+# 7. Berikan izin akses (Permissions) agar file bisa dibaca Nginx
+# Ini langkah krusial untuk mencegah error 403 Forbidden
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
+
+# Ekspos port 80
 EXPOSE 80
 
-# Jalankan Nginx agar terus menyala di latar belakang
+# Jalankan Nginx
 CMD ["nginx", "-g", "daemon off;"]

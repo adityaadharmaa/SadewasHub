@@ -244,7 +244,7 @@ export default function RoomTypesPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[24px] border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
+      <div className="overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-slate-200/60 bg-slate-50/50 text-xs uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
@@ -294,7 +294,7 @@ export default function RoomTypesPage() {
                     </td>
 
                     {/* KOLOM HARGA BARU */}
-                    <td className="px-6 py-4 align-top pt-5 min-w-[200px]">
+                    <td className="px-6 py-4 align-top pt-5 min-w-50">
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-slate-500 dark:text-slate-400">
@@ -323,7 +323,7 @@ export default function RoomTypesPage() {
                       </div>
                     </td>
 
-                    <td className="px-6 py-4 max-w-[300px] align-top pt-5">
+                    <td className="px-6 py-4 max-w-75 align-top pt-5">
                       <div className="flex flex-wrap items-center gap-1.5 transition-all">
                         {item.facilities && item.facilities.length > 0 ? (
                           <>
@@ -339,7 +339,7 @@ export default function RoomTypesPage() {
                                   name={fac.icon}
                                   className="h-3 w-3 opacity-70"
                                 />
-                                <span className="truncate max-w-[100px]">
+                                <span className="truncate max-w-25">
                                   {fac.name}
                                 </span>
                               </span>
@@ -417,7 +417,7 @@ export default function RoomTypesPage() {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm animate-in fade-in">
           {/* Diperlebar max-w-lg menjadi max-w-2xl agar grid harga lega */}
-          <div className="flex w-full max-w-2xl scale-100 flex-col overflow-hidden rounded-[24px] bg-white p-7 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-slate-900 dark:ring-slate-800 sm:max-h-[90vh]">
+          <div className="flex w-full max-w-2xl scale-100 flex-col overflow-hidden rounded-3xl bg-white p-7 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-slate-900 dark:ring-slate-800 sm:max-h-[90vh]">
             <div className="mb-6 flex shrink-0 items-center justify-between">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
                 {editingData ? "Edit Tipe Kamar" : "Tambah Tipe Baru"}

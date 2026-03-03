@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface Profile {
   full_name: string;
   nik: string;
+  nickname: string;
   phone_number: string;
   avatar_url?: string;
   is_verified: boolean;

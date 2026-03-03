@@ -72,15 +72,12 @@ export default function TenantDashboard() {
   const promos = promosData?.data || [];
   const bookingsList = bookingsData?.data || [];
 
-  // --- PERBAIKAN LOGIKA: PISAHKAN KAMAR AKTIF & TAGIHAN GANTUNG ---
-
-  // 1. Ambil booking yang SUDAH LUNAS / SAH (untuk ditampilkan di kartu utama)
+  // --- PISAHKAN KAMAR AKTIF & TAGIHAN GANTUNG ---
   const activeBooking =
     bookingsList.find(
       (b: any) => b.status === "confirmed" || b.status === "occupied",
-    ) || bookingsList[0]; // Fallback jika tidak ada sama sekali
+    ) || bookingsList[0];
 
-  // 2. Cek apakah ada tagihan perpanjangan / booking yang BELUM DIBAYAR
   const pendingBooking = bookingsList.find((b: any) => b.status === "pending");
 
   // --- LOGIKA PERPANJANGAN DINAMIS (EXTEND) ---
@@ -106,10 +103,12 @@ export default function TenantDashboard() {
   const isNearExpiry = daysLeft !== null && daysLeft >= 0 && daysLeft <= 7;
   const isExpired = daysLeft !== null && daysLeft < 0;
 
-  // --- FUNGSI MENGHITUNG ESTIMASI HARGA ---
-  const getEstimatedPrice = () => {
-    if (!activeBooking?.room?.type) return 0;
+  // --- FUNGSI MENGHITUNG ESTIMASI HARGA (DENGAN BIAYA ADMIN) ---
+  const ADMIN_FEE = 5000; // Flat Fee Rp 5.000
 
+  // 1. Ambil Subtotal Harga Kamar Saja
+  const getSubTotal = () => {
+    if (!activeBooking?.room?.type) return 0;
     const type = activeBooking.room.type;
     const duration = Number(selectedDuration) || 1;
 
@@ -120,6 +119,13 @@ export default function TenantDashboard() {
     if (selectedRentType === "monthly")
       return Number(type.price_per_month) * duration;
     return 0;
+  };
+
+  // 2. Ambil Total Keseluruhan (Termasuk Admin)
+  const getEstimatedPrice = () => {
+    const subTotal = getSubTotal();
+    if (subTotal === 0) return 0;
+    return subTotal + ADMIN_FEE;
   };
 
   const extendMutation = useMutation({
@@ -253,10 +259,10 @@ export default function TenantDashboard() {
             <div
               className={`relative overflow-hidden rounded-[28px] p-6 sm:p-8 shadow-xl text-white transition-all ${
                 isNearExpiry
-                  ? "bg-gradient-to-br from-amber-500 to-orange-600 shadow-amber-500/20"
+                  ? "bg-linear-to-br from-amber-500 to-orange-600 shadow-amber-500/20"
                   : isExpired
-                    ? "bg-gradient-to-br from-rose-500 to-red-700 shadow-rose-500/20"
-                    : "bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 shadow-primary-500/20"
+                    ? "bg-linear-to-br from-rose-500 to-red-700 shadow-rose-500/20"
+                    : "bg-linear-to-br from-primary-600 via-primary-700 to-blue-800 shadow-primary-500/20"
               }`}
             >
               <div className="absolute top-0 right-0 p-8 opacity-10">
@@ -299,7 +305,6 @@ export default function TenantDashboard() {
                     </div>
                   </div>
 
-                  {/* LOGIKA TOMBOL PINTAR YANG SUDAH DIPERBAIKI */}
                   {pendingBooking ? (
                     <button
                       onClick={() => navigate(`/tenant/invoices`)}
@@ -397,7 +402,7 @@ export default function TenantDashboard() {
                 key={promo.id}
                 className="shrink-0 w-80 rounded-[28px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition-all"
               >
-                <div className="relative h-28 bg-gradient-to-br from-amber-400 via-orange-500 to-rose-500 p-5 flex flex-col justify-between overflow-hidden">
+                <div className="relative h-28 bg-linear-to-br from-amber-400 via-orange-500 to-rose-500 p-5 flex flex-col justify-between overflow-hidden">
                   <div className="absolute -right-4 -top-4 bg-white/20 h-24 w-24 rounded-full blur-xl"></div>
                   <span className="inline-flex self-start bg-black/20 backdrop-blur-sm text-white text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg">
                     ✨ Khusus Pesan Baru
@@ -409,7 +414,7 @@ export default function TenantDashboard() {
                   </div>
                 </div>
 
-                <div className="p-5 flex flex-col flex-grow">
+                <div className="p-5 flex flex-col grow">
                   <h4 className="font-black text-slate-900 dark:text-white text-base mb-1.5">
                     {promo.name}
                   </h4>
@@ -442,14 +447,14 @@ export default function TenantDashboard() {
         </section>
       )}
 
-      {/* MODAL PERPANJANG SEWA DENGAN KALKULATOR HARGA */}
+      {/* MODAL PERPANJANG SEWA DENGAN KALKULATOR HARGA BARU */}
       {isExtendModalOpen && activeBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm animate-in fade-in"
             onClick={() => setIsExtendModalOpen(false)}
           />
-          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl animate-in zoom-in-95">
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-4xl overflow-hidden shadow-2xl animate-in zoom-in-95">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
               <div>
                 <h2 className="text-xl font-black text-slate-900 dark:text-white">
@@ -518,6 +523,7 @@ export default function TenantDashboard() {
                 </div>
               </div>
 
+              {/* TAMPILAN RINCIAN HARGA BARU */}
               <div className="space-y-3">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 rounded-2xl">
                   <p className="text-[11px] text-blue-700 dark:text-blue-400 font-medium leading-relaxed">
@@ -529,20 +535,35 @@ export default function TenantDashboard() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <span className="text-sm font-bold text-slate-500 dark:text-slate-400">
-                    Estimasi Tagihan:
-                  </span>
-                  <span className="text-xl font-black text-primary-600 dark:text-primary-400">
-                    {formatRupiah(getEstimatedPrice())}
-                  </span>
+                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                  {/* Harga Pokok */}
+                  <div className="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+                    <span>Harga Sewa Kamar:</span>
+                    <span>{formatRupiah(getSubTotal())}</span>
+                  </div>
+
+                  {/* Biaya Admin Transparan */}
+                  <div className="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400 pb-2 border-b border-dashed border-slate-200 dark:border-slate-700">
+                    <span>Biaya Layanan Aplikasi:</span>
+                    <span>{formatRupiah(ADMIN_FEE)}</span>
+                  </div>
+
+                  {/* Total Tagihan */}
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                      Total Tagihan:
+                    </span>
+                    <span className="text-xl font-black text-primary-600 dark:text-primary-400">
+                      {formatRupiah(getEstimatedPrice())}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <button
                 type="submit"
-                disabled={extendMutation.isPending}
-                className="w-full bg-primary-600 hover:bg-primary-700 text-white font-black py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                disabled={extendMutation.isPending || getSubTotal() === 0}
+                className="w-full bg-primary-600 hover:bg-primary-700 text-white font-black py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50"
               >
                 {extendMutation.isPending ? (
                   <Loader2 className="h-5 w-5 animate-spin" />

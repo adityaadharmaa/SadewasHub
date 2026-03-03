@@ -101,7 +101,7 @@ export default function AdminDashboard() {
       {/* STAT CARDS - Desain Premium dengan Ambient Background */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
         {/* Card 1: Revenue */}
-        <div className="group relative overflow-hidden rounded-[24px] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
+        <div className="group relative overflow-hidden rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
           {/* Ambient Glow */}
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-emerald-500/10 blur-3xl transition-all group-hover:bg-emerald-500/20 dark:bg-emerald-500/5"></div>
 
@@ -121,7 +121,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Card 2: Active Tenants */}
-        <div className="group relative overflow-hidden rounded-[24px] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
+        <div className="group relative overflow-hidden rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-blue-500/10 blur-3xl transition-all group-hover:bg-blue-500/20 dark:bg-blue-500/5"></div>
 
           <div className="relative z-10 flex items-center justify-between">
@@ -143,7 +143,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Card 3: Occupancy Rate */}
-        <div className="group relative overflow-hidden rounded-[24px] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
+        <div className="group relative overflow-hidden rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-purple-500/10 blur-3xl transition-all group-hover:bg-purple-500/20 dark:bg-purple-500/5"></div>
 
           <div className="relative z-10 flex items-center justify-between">
@@ -166,7 +166,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Card 4: Pending Tickets */}
-        <div className="group relative overflow-hidden rounded-[24px] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
+        <div className="group relative overflow-hidden rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:bg-slate-900 dark:ring-slate-800">
           <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-amber-500/10 blur-3xl transition-all group-hover:bg-amber-500/20 dark:bg-amber-500/5"></div>
 
           <div className="relative z-10 flex items-center justify-between">
@@ -197,7 +197,7 @@ export default function AdminDashboard() {
       {/* CHARTS SECTION */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         {/* Chart 1: Revenue Area Chart */}
-        <div className="rounded-[24px] bg-white p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
+        <div className="rounded-3xl bg-white p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
           <div className="mb-8">
             <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
               Tren Pendapatan
@@ -206,7 +206,7 @@ export default function AdminDashboard() {
               Pergerakan uang masuk 6 bulan terakhir
             </p>
           </div>
-          <div className="h-[320px] w-full">
+          <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
                 data={rechartsData}
@@ -241,7 +241,7 @@ export default function AdminDashboard() {
                 <Tooltip
                   contentStyle={customTooltipStyle}
                   itemStyle={{ color: "#0ea5e9", fontWeight: "800" }}
-                  formatter={(value: number) =>
+                  formatter={(value: number = 0) =>
                     new Intl.NumberFormat("id-ID", {
                       style: "currency",
                       currency: "IDR",
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Chart 2: Profit vs Expense Bar Chart */}
-        <div className="rounded-[24px] bg-white p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
+        <div className="rounded-3xl bg-white p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
           <div className="mb-8">
             <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
               Laba & Pengeluaran
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
               Perbandingan bersih antara laba dan beban kos
             </p>
           </div>
-          <div className="h-[320px] w-full">
+          <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={rechartsData}
@@ -300,7 +300,7 @@ export default function AdminDashboard() {
                 <Tooltip
                   cursor={{ fill: "rgba(241, 245, 249, 0.4)" }}
                   contentStyle={customTooltipStyle}
-                  formatter={(value: number) =>
+                  formatter={(value: number = 0) =>
                     new Intl.NumberFormat("id-ID", {
                       style: "currency",
                       currency: "IDR",

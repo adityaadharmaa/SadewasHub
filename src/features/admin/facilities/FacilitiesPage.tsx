@@ -170,7 +170,7 @@ export default function FacilitiesPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[24px] border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
+      <div className="overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:border-slate-800 dark:bg-slate-900">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-slate-200/60 bg-slate-50/50 text-xs uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
@@ -290,7 +290,7 @@ export default function FacilitiesPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-sm scale-100 rounded-[24px] bg-white p-6 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-slate-900 dark:ring-slate-800">
+          <div className="w-full max-w-sm scale-100 rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-slate-100 animate-in zoom-in-95 dark:bg-slate-900 dark:ring-slate-800">
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
                 {editingData ? "Edit Fasilitas" : "Tambah Fasilitas"}

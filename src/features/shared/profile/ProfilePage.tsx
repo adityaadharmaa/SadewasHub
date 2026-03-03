@@ -36,7 +36,7 @@ export default function ProfilePage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    // FIX: Menghapus 'errors' karena dideklarasikan tapi tidak pernah digunakan (Error TS6133)
   } = useForm();
 
   // --- FETCH CURRENT USER DATA ---
@@ -217,8 +217,8 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* --- KOLOM KIRI: ID CARD SUMMARY --- */}
         <div className="xl:col-span-1 space-y-6">
-          <div className="overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-sm dark:border-slate-700/60 dark:bg-[#1e293b]/50">
-            <div className="h-28 bg-gradient-to-br from-primary-500 via-primary-600 to-blue-700"></div>
+          <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-700/60 dark:bg-[#1e293b]/50">
+            <div className="h-28 bg-linear-to-br from-primary-500 via-primary-600 to-blue-700"></div>
 
             <div className="px-6 pb-6 relative flex flex-col items-center text-center">
               <div className="h-24 w-24 rounded-full border-4 border-white dark:border-[#1e293b] bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-3xl font-black text-slate-600 dark:text-slate-300 shadow-md -mt-12 mb-3">
@@ -314,7 +314,7 @@ export default function ProfilePage() {
 
         {/* --- KOLOM KANAN: FORM EDIT PROFIL DENGAN TABS --- */}
         <div className="xl:col-span-2">
-          <div className="rounded-[24px] border border-slate-200/80 bg-white shadow-sm dark:border-slate-700/60 dark:bg-[#1e293b]/50 overflow-hidden flex flex-col h-full">
+          <div className="rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-700/60 dark:bg-[#1e293b]/50 overflow-hidden flex flex-col h-full">
             {/* TABS HEADER */}
             <div className="flex items-center overflow-x-auto border-b border-slate-100 dark:border-slate-700/50 custom-scrollbar shrink-0">
               <button
@@ -434,7 +434,7 @@ export default function ProfilePage() {
                           {...register("birth_date", {
                             required: "Tanggal lahir wajib diisi",
                           })}
-                          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:bg-white focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#0f172a] dark:text-white dark:focus:bg-[#1e293b] [color-scheme:light] dark:[color-scheme:dark]"
+                          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all focus:border-primary-500 focus:bg-white focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700/80 dark:bg-[#0f172a] dark:text-white dark:focus:bg-[#1e293b] scheme-light dark:scheme-dark"
                         />
                       </div>
                     </div>
@@ -506,7 +506,11 @@ export default function ProfilePage() {
                             type="file"
                             accept=".jpg,.jpeg,.png"
                             onChange={handleFileChange}
-                            className={`w-full rounded-xl border ${isKtpRequired && !selectedFile && !hasUploadedKtp ? "border-red-300 bg-red-50 dark:border-red-500/50 dark:bg-red-500/10" : "border-dashed border-slate-300 bg-slate-50 dark:border-slate-700 dark:bg-[#0f172a]"} px-4 py-3 text-sm font-medium text-slate-500 outline-none transition-all focus:border-primary-500 cursor-pointer file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-primary-500/10 dark:file:text-primary-400`}
+                            className={`w-full rounded-xl border ${
+                              isKtpRequired && !selectedFile && !hasUploadedKtp
+                                ? "border-red-300 bg-red-50 dark:border-red-500/50 dark:bg-red-500/10"
+                                : "border-dashed border-slate-300 bg-slate-50 dark:border-slate-700 dark:bg-[#0f172a]"
+                            } px-4 py-3 text-sm font-medium text-slate-500 outline-none transition-all focus:border-primary-500 cursor-pointer file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-primary-500/10 dark:file:text-primary-400`}
                           />
                           <p className="text-[10px] text-slate-400 mt-2">
                             Format: JPG, PNG. Maksimal 2MB. Mengunggah gambar

@@ -171,7 +171,7 @@ export default function TenantLayout() {
         )}
       </div>
 
-      <div className="max-h-[320px] overflow-y-auto p-2 custom-scrollbar">
+      <div className="max-h-80 overflow-y-auto p-2 custom-scrollbar">
         {isLoadingNotifs ? (
           <div className="flex h-32 flex-col items-center justify-center text-slate-400">
             <Loader2 className="h-6 w-6 animate-spin mb-2" />

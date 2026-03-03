@@ -160,7 +160,7 @@ export default function RoomCatalogPage() {
           <p className="font-bold text-sm">Memuat katalog kamar...</p>
         </div>
       ) : filteredRooms.length === 0 ? (
-        <div className="py-16 text-center bg-white dark:bg-[#1e293b]/50 rounded-[24px] border border-dashed border-slate-200 dark:border-slate-800">
+        <div className="py-16 text-center bg-white dark:bg-[#1e293b]/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
           <BedDouble className="h-12 w-12 text-slate-300 dark:text-slate-600 mx-auto mb-3" />
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             Kamar tidak ditemukan
@@ -178,7 +178,7 @@ export default function RoomCatalogPage() {
             return (
               <div
                 key={room.id}
-                className="group flex flex-col bg-white dark:bg-[#1e293b]/40 border border-slate-200/80 dark:border-slate-700/60 rounded-[24px] overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1"
+                className="group flex flex-col bg-white dark:bg-[#1e293b]/40 border border-slate-200/80 dark:border-slate-700/60 rounded-3xl overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1"
               >
                 <div className="relative h-48 bg-slate-100 dark:bg-slate-800 overflow-hidden">
                   {thumbnail ? (
