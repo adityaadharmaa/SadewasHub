@@ -11,7 +11,6 @@ import {
   Receipt,
   AlertCircle,
   Loader2,
-  Download,
   Wallet,
 } from "lucide-react";
 
@@ -52,6 +51,7 @@ export default function TenantBookingDetailPage() {
     }).format(amount);
   };
 
+  // --- LOADING & ERROR STATES ---
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -85,6 +85,28 @@ export default function TenantBookingDetailPage() {
   }
 
   const isPending = bookingData.status === "pending";
+
+  // ==========================================
+  // 🧮 KALKULATOR TRANSPARANSI BIAYA (REVERSE)
+  // ==========================================
+  const ADMIN_FEE_PERCENTAGE = 1.5;
+
+  // 1. Total Tagihan Akhir (termasuk admin) dari Database
+  const finalTotalAmount = Number(bookingData.total_amount) || 0;
+
+  // 2. Diskon dari Database
+  const discountAmount = Number(bookingData.discount_amount) || 0;
+
+  // 3. Menghitung Mundur:
+  // Jika Final = Base * 1.015, maka Base = Final / 1.015
+  const priceAfterDiscount =
+    finalTotalAmount / (1 + ADMIN_FEE_PERCENTAGE / 100);
+
+  // 4. Biaya Admin Murni
+  const adminFeeAmount = finalTotalAmount - priceAfterDiscount;
+
+  // 5. Harga Sewa Kamar Asli (sebelum diskon & admin)
+  const baseRoomPrice = priceAfterDiscount + discountAmount;
 
   return (
     <div className="space-y-6 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-3xl mx-auto">
@@ -225,7 +247,7 @@ export default function TenantBookingDetailPage() {
         </div>
       </div>
 
-      {/* TOTAL PEMBAYARAN */}
+      {/* TOTAL PEMBAYARAN DENGAN TRANSPARANSI BIAYA ADMIN */}
       <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300">
@@ -236,34 +258,43 @@ export default function TenantBookingDetailPage() {
           </h3>
         </div>
 
-        <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-5 border border-slate-100 dark:border-slate-800 space-y-4">
+        <div className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-5 border border-slate-100 dark:border-slate-800 space-y-3">
+          {/* Harga Pokok */}
           <div className="flex justify-between items-center">
             <p className="text-sm font-medium text-slate-500">
-              Harga Sewa Pokok
+              Harga Sewa Kamar
             </p>
             <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
-              {formatRupiah(
-                bookingData.total_amount + bookingData.discount_amount,
-              )}
+              {formatRupiah(baseRoomPrice)}
             </p>
           </div>
 
           {/* Tampilkan diskon jika ada */}
-          {bookingData.discount_amount > 0 && (
+          {discountAmount > 0 && (
             <div className="flex justify-between items-center text-emerald-600">
               <p className="text-sm font-medium">Potongan Promo</p>
               <p className="text-sm font-bold">
-                -{formatRupiah(bookingData.discount_amount)}
+                -{formatRupiah(discountAmount)}
               </p>
             </div>
           )}
 
-          <div className="pt-4 border-t border-dashed border-slate-200 dark:border-slate-700 flex justify-between items-center">
+          {/* Biaya Admin Transparan */}
+          <div className="flex justify-between items-center">
+            <p className="text-sm font-medium text-slate-500">
+              Biaya Layanan Aplikasi ({ADMIN_FEE_PERCENTAGE}%)
+            </p>
+            <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
+              {formatRupiah(adminFeeAmount)}
+            </p>
+          </div>
+
+          <div className="pt-4 mt-2 border-t border-dashed border-slate-200 dark:border-slate-700 flex justify-between items-center">
             <p className="text-sm font-black text-slate-900 dark:text-white">
               Total Dibayar
             </p>
             <p className="text-xl font-black text-primary-600 dark:text-primary-400">
-              {formatRupiah(bookingData.total_amount)}
+              {formatRupiah(finalTotalAmount)}
             </p>
           </div>
         </div>
@@ -278,7 +309,7 @@ export default function TenantBookingDetailPage() {
               }
               className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-4 px-4 rounded-xl shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] animate-pulse"
             >
-              <Wallet className="h-5 w-5" /> Selesaikan Pembayaran
+              <Wallet className="h-5 w-5" /> Selesaikan Pembayaran via Xendit
             </button>
           )}
 

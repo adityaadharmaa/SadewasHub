@@ -93,7 +93,10 @@ export default function BookingCreatePage() {
     }).format(angka);
   };
 
-  // Tentukan harga satuan berdasarkan pilihan rent_type
+  // --- 1. KONSTANTA BIAYA ADMIN FLAT ---
+  const ADMIN_FEE = 5000;
+
+  // 2. Tentukan harga satuan berdasarkan pilihan rent_type
   const basePrice = useMemo(() => {
     if (!roomData?.type) return 0;
     if (rentType === "daily") return Number(roomData.type.price_per_day) || 0;
@@ -101,10 +104,17 @@ export default function BookingCreatePage() {
     return Number(roomData.type.price_per_month) || 0;
   }, [roomData, rentType]);
 
-  // Kalkulasi total
-  const totalPrice = useMemo(() => {
+  // 3. Kalkulasi Subtotal (Harga Pokok Kamar)
+  const subTotalPrice = useMemo(() => {
     return basePrice * (Number(duration) || 1);
   }, [basePrice, duration]);
+
+  // 4. Total Akhir (Sudah termasuk Admin Fee Flat Rp 5.000)
+  const finalTotalPrice = useMemo(() => {
+    // Jika user belum pilih durasi/tipe dengan benar dan harganya masih 0, jgn tambahkan admin fee
+    if (subTotalPrice === 0) return 0;
+    return subTotalPrice + ADMIN_FEE;
+  }, [subTotalPrice]);
 
   // Label untuk UI
   const rentTypeLabel =
@@ -364,25 +374,34 @@ export default function BookingCreatePage() {
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between items-center text-slate-600 dark:text-slate-400">
-                  <span>Harga ({rentTypeLabel})</span>
+                  <span>Harga Sewa Kamar</span>
                   <span className="font-medium text-slate-800 dark:text-slate-200">
-                    {basePrice > 0 ? formatRupiah(basePrice) : "-"}
+                    {subTotalPrice > 0 ? formatRupiah(subTotalPrice) : "-"}
                   </span>
                 </div>
+
                 <div className="flex justify-between items-center text-slate-600 dark:text-slate-400">
                   <span>Durasi Sewa</span>
                   <span className="font-medium text-slate-800 dark:text-slate-200">
                     {duration || 1} {rentTypeLabel}
                   </span>
                 </div>
+
+                {/* --- BIAYA ADMIN TRANSPARAN FLAT --- */}
+                <div className="flex justify-between items-center text-slate-600 dark:text-slate-400 pb-3 border-b border-dashed border-slate-200 dark:border-slate-700">
+                  <span>Biaya Layanan Aplikasi</span>
+                  <span className="font-medium text-slate-800 dark:text-slate-200">
+                    {formatRupiah(ADMIN_FEE)}
+                  </span>
+                </div>
               </div>
 
-              <div className="my-5 pt-5 border-t border-dashed border-slate-200 dark:border-slate-700 flex justify-between items-center">
+              <div className="my-5 pt-2 flex justify-between items-center">
                 <span className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Subtotal
+                  Total Tagihan
                 </span>
                 <span className="text-xl font-black text-primary-600 dark:text-primary-400">
-                  {formatRupiah(totalPrice)}
+                  {formatRupiah(finalTotalPrice)}
                 </span>
               </div>
 

@@ -18,7 +18,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-api.interceptors.request.use(
+api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
@@ -32,4 +32,5 @@ api.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
 export default api;

@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sadewas_frontend
+    restart: unless-stopped
+    ports:
+      # Port 5173 di VPS diarahkan ke port 80 milik Nginx di dalam container
+      - "5173:80"
+    # environment:
+      # Jika ke depannya ada variabel .env yang ingin disuntikkan lewat VPS, bisa ditambahkan di sini
