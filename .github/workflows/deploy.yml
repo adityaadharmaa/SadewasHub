@@ -1,0 +1,31 @@
+name: Deploy Frontend to VPS
+
+on:
+  push:
+    branches:
+      - main # Robot akan bekerja setiap kali ada push ke branch main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Eksekusi proses deploy di VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 1. Masuk ke folder proyek Frontend di VPS 
+            # (Ganti nama foldernya jika Anda menggunakan nama yang berbeda di VPS)
+            cd ~/sadewashub-fe
+
+            # 2. Tarik kode terbaru dari GitHub
+            git pull origin main
+
+            # 3. Rakit ulang (build) container Docker dengan kode terbaru dan jalankan
+            sudo docker compose up -d --build
+
+            # 4. Bersihkan sampah image Docker lama agar memori SSD VPS Anda tetap lega
+            sudo docker image prune -f
